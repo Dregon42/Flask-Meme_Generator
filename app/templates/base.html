@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<title>Meme Generator</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg py-3 container-fluid rounded shadow-lg bg-transparent fixed-top" style="font-style: Barriecito;">
+        <div class="container">
+            <a class="nav-link" href="{{ url_for('site.home') }}">
+                <h1 class="text-light">Memes</h1>
+            </a>
+            <button 
+            class="navbar-toggler bs5-button-a border-5" style="background-color: gray; border-color: black; text-shadow: 6;"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navmenu">
+            <span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse ms-11 ms-md-6" style="color: black;" id="navmenu">
+                <ul class="navbar-nav ms-auto align-left">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('site.profile') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Meme" class="nav-link">Memes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </li>
+                    {% else %}
+                    {% if not current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.signin') }}">
+                            <h4 class="text-light">Sign In</h4> 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.signup') }}">
+                            <h4 class="text-light">Sign Up</h4>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{% block content %}
+{% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+</body>
+</html>
