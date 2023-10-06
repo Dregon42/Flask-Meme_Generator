@@ -10,9 +10,11 @@ api = Blueprint('api', __name__, url_prefix='/api')
 def create_meme(current_user_token):
     quote = request.json['quote']
     image = request.json['image']
-    user = User.query.get(current_user_token.id)
+    user = current_user_token.token
+    # print(user)
+    # print(current_user_token)
 
-    meme = Meme(quote=quote, image=image, user_id=user.id)
+    meme = Meme(quote=quote, image=image, user_token=user)
 
     db.session.add(meme)
     db.session.commit()

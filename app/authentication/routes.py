@@ -38,7 +38,7 @@ def signin():
             password = form.password.data
             print(email, password)
 
-            logged_user = User.query.filter(User.username == username).first()
+            logged_user = User.query.filter(User.email == email).first()
             if logged_user and check_password_hash(logged_user.password, password):
                 login_user(logged_user)
                 flash('You were successful in your initiation. Congratulations, and welcome!', 'auth-sucess')

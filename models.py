@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), nullable = False)
     password = db.Column(db.String, nullable = True, default = '')
     g_auth_verify = db.Column(db.Boolean, default = False)
-    token = db.Column(db.String, default = '', unique = True )
+    token = db.Column(db.String, default = '', unique = True)
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
     def __init__(self, email, first_name='', last_name='', password='', token='', g_auth_verify=False):
@@ -51,9 +51,9 @@ class User(db.Model, UserMixin):
     
 class Meme(db.Model):
     id = db.Column(db.String, primary_key = True)
-    quote = db.Column(db.String(100))
+    quote = db.Column(db.String(200))
     image = db.Column(db.String(200))
-    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
+    user_token = db.Column(db.String, db.ForeignKey('user.id'), nullable = False)
     user = db.relationship('User', backref=db.backref('memes', lazy=True))
 
     def __init__(self, quote, image, user_token, id=''):
@@ -79,7 +79,7 @@ class Meme(db.Model):
 
 class MemeSchema(ma.Schema):
     class Meta:
-        fields = ['id', 'quote', 'image']
+        fields = ['id', 'quote', 'imageflask']
 
 meme_schema = MemeSchema()
 memes_schema = MemeSchema(many=True)    
