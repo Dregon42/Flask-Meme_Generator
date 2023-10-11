@@ -79,7 +79,7 @@ class Meme(db.Model):
 
 class MemeSchema(ma.Schema):
     class Meta:
-        fields = ['id', 'quote', 'imageflask']
+        fields = ['id', 'quote', 'image']
 
 meme_schema = MemeSchema()
 memes_schema = MemeSchema(many=True)    
