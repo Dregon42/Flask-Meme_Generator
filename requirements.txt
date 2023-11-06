@@ -2,10 +2,11 @@ alembic
 click
 dnspython
 email-validator
-Flask
+Flask==2.2.5
 flask-cors
 Flask-Login
 flask-marshmallow
+flask_wtf
 Flask-Migrate
 Flask-SQLAlchemy
 greenlet
@@ -20,7 +21,5 @@ psycopg2-binary
 python-dateutil
 python-dotenv
 six
-SQLAlchemy
+marshmallow-sqlalchemy
 Werkzeug
-WTForms
-flask_wtf
