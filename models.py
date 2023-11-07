@@ -45,7 +45,10 @@ class User(db.Model, UserMixin):
     def set_password(self, password):
         self.pw_hash = generate_password_hash(password)
         return self.pw_hash
-
+    
+    def check_hash_password(self, password):
+        return check_password_hash(self.password,password)
+    
     def __repr__(self):
         return f'User {self.email} has been added to the database'
     
@@ -53,7 +56,7 @@ class Meme(db.Model):
     id = db.Column(db.String, primary_key = True)
     quote = db.Column(db.String(200))
     image = db.Column(db.String(200))
-    user_token = db.Column(db.String, db.ForeignKey('user.id'), nullable = False)
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
     user = db.relationship('User', backref=db.backref('memes', lazy=True))
 
     def __init__(self, quote, image, user_token, id=''):

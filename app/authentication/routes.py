@@ -1,5 +1,5 @@
 from forms import UserLoginForm, UserSignupForm
-from models import User, db, check_password_hash
+from models import User, db
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, LoginManager, current_user, login_required
 
@@ -34,12 +34,13 @@ def signin():
     
     try:
         if request.method == 'POST' and form.validate_on_submit():
-            email = form.email.data
+            email = form.email.data.lower()
             password = form.password.data
             print(email, password)
-
-            logged_user = User.query.filter(User.email == email).first()
-            if logged_user and check_password_hash(logged_user.password, password):
+            logged_user = db.session.execute(db.select(User).where(User.email == email)).scalar()
+            # logged_user = User.query.filter_by(email = email).first()
+            print(logged_user)
+            if logged_user is not None and logged_user.check_hash_password(logged_user.password, password):
                 login_user(logged_user)
                 flash('You were successful in your initiation. Congratulations, and welcome!', 'auth-sucess')
                 return redirect(url_for('site.profile'))
